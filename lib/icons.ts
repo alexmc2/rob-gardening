@@ -14,6 +14,7 @@ export {
   Minus,
   Plus,
   Loader2,
+  CalendarDays,
   Mail,
   Menu,
   ShoppingCart,

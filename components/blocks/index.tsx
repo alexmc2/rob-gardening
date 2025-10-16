@@ -4,6 +4,7 @@ import type { ComponentType } from 'react';
 import type { PAGE_QUERYResult } from '@/sanity.types';
 import type { ContactFormBlock } from '@/components/blocks/forms/contact-form';
 import type { BookingFormBlock } from '@/components/blocks/forms/booking-form';
+import type { BookingCalendarFormBlock } from '@/components/blocks/forms/booking-calendar-form';
 import type { FormContactMapBlock } from '@/components/blocks/forms/contact-map';
 import type { LocationMapBlock } from '@/components/blocks/location/location-map';
 import type { RichTextBlockProps } from '@/components/blocks/rich-text-block';
@@ -12,6 +13,7 @@ type ExtendedBlock =
   | Block
   | ContactFormBlock
   | BookingFormBlock
+  | BookingCalendarFormBlock
   | LocationMapBlock
   | FormContactMapBlock
   | RichTextBlockProps;
@@ -80,6 +82,8 @@ const componentLoaders = {
     import('@/components/blocks/forms/contact-form').then((mod) => mod.default),
   'form-booking': () =>
     import('@/components/blocks/forms/booking-form').then((mod) => mod.default),
+  'form-booking-calendar': () =>
+    import('@/components/blocks/forms/booking-calendar-form').then((mod) => mod.default),
   'form-contact-map': () =>
     import('@/components/blocks/forms/contact-map').then((mod) => mod.default),
   'location-map': () =>

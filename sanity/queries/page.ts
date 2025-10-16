@@ -20,6 +20,7 @@ import { faqsQuery } from "./faqs";
 import { formNewsletterQuery } from "./forms/newsletter";
 import { formContactQuery } from "./forms/contact";
 import { formBookingQuery } from "./forms/booking";
+import { formBookingCalendarQuery } from "./forms/booking-calendar";
 import { formContactMapQuery } from "./forms/contact-map";
 import { locationMapQuery } from "./location/location-map";
 import { allPostsQuery } from "./all-posts";
@@ -55,6 +56,7 @@ export const PAGE_QUERY = groq`
       ${formNewsletterQuery},
       ${formContactQuery},
       ${formBookingQuery},
+      ${formBookingCalendarQuery},
       ${formContactMapQuery},
       ${locationMapQuery},
       ${allPostsQuery},

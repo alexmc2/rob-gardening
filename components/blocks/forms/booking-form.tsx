@@ -18,10 +18,10 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { Input, formFieldBaseClasses } from '@/components/ui/input';
+import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Loader2 } from '@/lib/icons';
-import { cn } from '@/lib/utils';
 import type { ColorVariant, SectionPadding } from '@/sanity.types';
 
 const postcodeRegex = /^[A-Z]{1,2}\d[A-Z\d]?\s?\d[A-Z]{2}$/i;
@@ -361,21 +361,20 @@ export default function BookingForm({
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Service</FormLabel>
-                <FormControl>
-                  <select
-                    {...field}
-                    className={cn(formFieldBaseClasses, 'flex h-11 px-3 py-2 text-base md:text-sm')}
-                  >
-                    <option value="" disabled>
-                      Select a service
-                    </option>
+                <Select onValueChange={field.onChange} value={field.value} defaultValue={field.value}>
+                  <FormControl>
+                    <SelectTrigger className="h-11 w-full">
+                      <SelectValue placeholder="Select a service" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent className="max-h-60">
                     {serviceOptions.map((service) => (
-                      <option key={service} value={service}>
+                      <SelectItem key={service} value={service}>
                         {service}
-                      </option>
+                      </SelectItem>
                     ))}
-                  </select>
-                </FormControl>
+                  </SelectContent>
+                </Select>
                 <FormMessage />
               </FormItem>
             )}

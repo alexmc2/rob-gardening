@@ -15,6 +15,8 @@ const requestSchema = z.object({
   postcode: z.string().min(5),
   service: z.string().min(1),
   preferredDate: z.string().min(1),
+  preferredStartTime: z.string().min(1),
+  preferredEndTime: z.string().min(1),
   message: z.string().max(1000).optional(),
   settingsId: z.string().optional(),
 });

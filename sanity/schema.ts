@@ -57,6 +57,7 @@ import faqs from "./schemas/blocks/faqs";
 import newsletter from "./schemas/blocks/forms/newsletter";
 import contactForm from "./schemas/blocks/forms/contact";
 import bookingForm from "./schemas/blocks/forms/booking";
+import bookingCalendarForm from "./schemas/blocks/forms/booking-calendar";
 import contactMap from "./schemas/blocks/forms/contact-map";
 import locationMap from "./schemas/blocks/location/location-map";
 import allPosts from "./schemas/blocks/all-posts";
@@ -123,6 +124,7 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     newsletter,
     contactForm,
     bookingForm,
+    bookingCalendarForm,
     contactMap,
     locationMap,
     allPosts,

@@ -64,6 +64,7 @@ export default defineType({
         { type: 'form-newsletter' },
         { type: 'form-contact' },
         { type: 'form-booking' },
+        { type: 'form-booking-calendar' },
         { type: 'location-map' },
         { type: 'all-posts' },
         { type: 'product-grid' },
@@ -145,7 +146,7 @@ export default defineType({
             {
               name: 'forms',
               title: 'Forms',
-              of: ['form-newsletter', 'form-contact', 'form-booking', 'location-map'],
+              of: ['form-newsletter', 'form-contact', 'form-booking', 'form-booking-calendar', 'location-map'],
             },
             {
               name: 'all-posts',
