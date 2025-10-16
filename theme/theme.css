@@ -1,0 +1,28 @@
+:root {
+  --background: oklch(98% 0.001 106.423);               /* base-100 */
+  --foreground: oklch(21% 0.006 56.043);               /* base-content */
+
+  --card: oklch(97% 0.001 106.424);                     /* base-200 */
+  --card-foreground: oklch(21% 0.006 56.043);          /* base-content */
+  --popover: oklch(98% 0.001 106.423);                  /* base-100 */
+  --popover-foreground: oklch(21% 0.006 56.043);       /* base-content */
+
+  --primary: oklch(75% 0.183 55.934);                  /* primary */
+  --primary-foreground: oklch(26% 0.079 36.259);       /* primary-content */
+
+  --secondary: oklch(84% 0.238 128.85);                 /* secondary */
+  --secondary-foreground: oklch(27% 0.072 132.109);      /* secondary-content */
+
+  --muted: oklch(97% 0.001 106.424);                    /* base-200 */
+  --muted-foreground: oklch(21% 0.006 56.043);         /* base-content */
+
+  --accent: oklch(67% 0.182 276.935);                    /* accent */
+  --accent-foreground: oklch(25% 0.09 281.288);        /* accent-content */
+
+  --destructive: oklch(64% 0.246 16.439);                /* error */
+  --destructive-foreground: oklch(96% 0.015 12.422);   /* error-content */
+
+  --border: oklch(92% 0.003 48.717);                   /* base-300 */
+  --input: oklch(92% 0.003 48.717);                    /* base-300 */
+  --ring: oklch(75% 0.183 55.934);                     /* primary */
+}

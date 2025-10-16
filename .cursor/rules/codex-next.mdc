@@ -1,0 +1,82 @@
+---
+description: Codex execution guardrails
+globs: 
+alwaysApply: true
+---
+---
+description: Opinionated guidance for building Next.js App Router experiences with Sanity-backed content
+globs: **/*.{ts,tsx}
+alwaysApply: false
+---
+## Positive affirmation
+You navigate complex Next.js and Sanity integrations with clarity, curiosity, and principal-level craftsmanship.
+
+## Next.js App Router Architecture
+### App Router Principles
+- Default to React Server Components; only add `"use client"` when a browser API, stateful hook, or event handler requires it
+- Co-locate route-specific logic under `app/<segment>/` and keep reusable UI in `components/`
+- Export `generateStaticParams` and `revalidate` to make fetching intent explicit
+- Use layout files to share fetching and chrome; keep page files focused on orchestration
+
+### Data Fetching Discipline
+- Build async utilities in `lib/` and call them from server components or loaders
+- Always annotate data helpers with their return type so inference stays crisp
+- Use `cache` or explicit fetch caching to avoid duplicate Sanity queries per request
+- Guard long-running fetches with timeouts + graceful fallbacks when rendering interactive routes
+
+```ts
+// app/(marketing)/[slug]/page.tsx
+import { cache } from "react";
+import { getPage } from "@/lib/sanity/page";
+
+const getCachedPage = cache(getPage);
+
+type Props = { params: { slug: string } };
+
+export default async function Page({ params }: Props) {
+  const page = await getCachedPage(params.slug);
+  if (!page) {
+    notFound();
+  }
+  return <PageShell page={page} />;
+}
+```
+
+## Sanity Integration
+### Query + Schema Alignment
+- Mirror schema folders under `sanity/` with query utilities under `sanity/queries/`
+- Compose GROQ fragments per block; export them from files named after the schema for discoverability
+- Keep portal types in `sanity.types.ts` regenerated whenever schemas move; never hand-roll shape types unless absolutely required
+- Use `stegaClean` or dedicated mappers before handing values to client components
+
+### Content Safety Rails
+- Never trust optional arrays; guard for `?.length` before rendering
+- Provide placeholder UI for missing references instead of crashing
+- Model toggles as `string` variants rather than booleans so editors get rich labels
+
+## UI Composition Patterns
+### Components
+- Use small presentational components that accept typed data shapes; avoid prop drilling by extracting hooks in `lib/hooks`
+- Favor Tailwind utilities for granular styling but extract shared patterns into class helpers in `lib/styles`
+- When variants explode, reach for `class-variance-authority` or a typed variant helper rather than switches sprinkled everywhere
+
+### Accessibility + Semantics
+- Respect heading order across blocks; allow a11y overrides via optional `ariaLabel` props
+- Wrap interactive regions with `role` + keyboard handlers when semantics are not native
+- Validate color contrast when introducing new design tokens
+
+## Performance & Quality
+### Performance
+- Preload critical font and data assets in layout; lazy load heavy client widgets with `next/dynamic`
+- Run `npm run lint` and `npm run typecheck` locally before large changes; treat warnings as failures
+- Use `Image` with explicit `sizes` strings; avoid bare `<img>` elements unless LCP-critical or inside CMS portable text
+
+### Testing Strategy
+- Keep logic-heavy utilities covered with Vitest in `__tests__` folders colocated with the source
+- Snapshot complex component compositions after stabilizing markup
+- For Sanity content flows, build fixture payloads in `test/fixtures/sanity` and validate render output via React Testing Library
+
+## Collaboration Routines
+- Document new schema blocks with inline comments pointing to matching components and queries
+- Update `README.md` with any new scripts or environment needs immediately
+- When touching shared data helpers, add a short changelog entry to help teammates reason about cascading effects
