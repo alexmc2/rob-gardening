@@ -20,7 +20,13 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { Loader2 } from '@/lib/icons';
 import type { ColorVariant, SectionPadding } from '@/sanity.types';
 
@@ -38,18 +44,16 @@ const bookingFormSchema = z.object({
     .email({
       message: 'Please enter a valid email address',
     }),
-  phone: z
-    .string()
-    .min(7, {
-      message: 'Add a contact number so we can reach you',
-    }),
+  phone: z.string().min(7, {
+    message: 'Add a contact number so we can reach you',
+  }),
   postcode: z
     .string()
     .min(6, {
       message: 'Please add your postcode',
     })
     .regex(postcodeRegex, {
-      message: 'Enter a valid UK postcode (e.g. M1 1AA)',
+      message: 'Enter a valid UK postcode',
     }),
   service: z.string().min(1, {
     message: 'Select a service to book',
@@ -59,20 +63,23 @@ const bookingFormSchema = z.object({
     .min(1, {
       message: 'Pick a preferred date',
     })
-    .refine((value) => {
-      const parsed = new Date(value);
-      if (Number.isNaN(parsed.getTime())) {
-        return false;
+    .refine(
+      (value) => {
+        const parsed = new Date(value);
+        if (Number.isNaN(parsed.getTime())) {
+          return false;
+        }
+
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        parsed.setHours(0, 0, 0, 0);
+
+        return parsed.getTime() >= today.getTime();
+      },
+      {
+        message: 'Choose a date from today onwards',
       }
-
-      const today = new Date();
-      today.setHours(0, 0, 0, 0);
-      parsed.setHours(0, 0, 0, 0);
-
-      return parsed.getTime() >= today.getTime();
-    }, {
-      message: 'Choose a date from today onwards',
-    }),
+    ),
   message: z
     .string()
     .max(1000, {
@@ -132,7 +139,8 @@ export default function BookingForm({
   const cleanedColor = colorVariant ? stegaClean(colorVariant) : undefined;
   const cleanedHeading = cleanString(heading);
   const cleanedBody = cleanString(body);
-  const cleanedSubmitLabel = cleanString(submitButtonLabel) ?? 'Request booking';
+  const cleanedSubmitLabel =
+    cleanString(submitButtonLabel) ?? 'Request booking';
   const cleanedSuccessMessage = cleanString(successMessage);
   const cleanedOutOfAreaMessage = cleanString(outOfAreaMessage);
   const cleanedAvailabilityNote = cleanString(availabilityNote);
@@ -141,7 +149,9 @@ export default function BookingForm({
     ? {
         id: settings._id,
         radiusKm: settings.serviceRadiusKm ?? undefined,
-        serviceLabel: cleanString(settings.serviceAreaLabel) ?? cleanString(settings.servicePostcode),
+        serviceLabel:
+          cleanString(settings.serviceAreaLabel) ??
+          cleanString(settings.servicePostcode),
         fallbackSuccess: cleanString(settings.successMessage),
       }
     : null;
@@ -212,7 +222,9 @@ export default function BookingForm({
         }
 
         const messageText =
-          cleanedSuccessMessage || cleanedSettings.fallbackSuccess || result?.message;
+          cleanedSuccessMessage ||
+          cleanedSettings.fallbackSuccess ||
+          result?.message;
 
         if (messageText) {
           toast.success(messageText);
@@ -228,7 +240,9 @@ export default function BookingForm({
           message: '',
         });
       } catch (error: any) {
-        toast.error(error?.message || 'Unable to send your booking request right now.');
+        toast.error(
+          error?.message || 'Unable to send your booking request right now.'
+        );
       }
     },
     [
@@ -248,9 +262,12 @@ export default function BookingForm({
     return (
       <SectionContainer color={cleanedColor} padding={padding}>
         <div className="mx-auto max-w-2xl rounded-xl border border-dashed border-border/70 bg-muted/40 p-8 text-center text-muted-foreground">
-          <p className="font-medium">Add booking settings in Sanity to enable this form.</p>
+          <p className="font-medium">
+            Add booking settings in Sanity to enable this form.
+          </p>
           <p className="mt-3 text-sm">
-            Link a "Booking Settings" document and publish it to start capturing booking requests.
+            Link a "Booking Settings" document and publish it to start capturing
+            booking requests.
           </p>
         </div>
       </SectionContainer>
@@ -261,9 +278,12 @@ export default function BookingForm({
     return (
       <SectionContainer color={cleanedColor} padding={padding}>
         <div className="mx-auto max-w-2xl rounded-xl border border-dashed border-border/70 bg-muted/40 p-8 text-center text-muted-foreground">
-          <p className="font-medium">Add at least one service option in Sanity to enable bookings.</p>
+          <p className="font-medium">
+            Add at least one service option in Sanity to enable bookings.
+          </p>
           <p className="mt-3 text-sm">
-            Populate the "Services offered" list on the booking form block and republish the page.
+            Populate the "Services offered" list on the booking form block and
+            republish the page.
           </p>
         </div>
       </SectionContainer>
@@ -291,7 +311,10 @@ export default function BookingForm({
         </div>
       )}
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-6 md:grid-cols-2">
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="grid gap-6 md:grid-cols-2"
+        >
           <FormField
             control={form.control}
             name="name"
@@ -299,7 +322,11 @@ export default function BookingForm({
               <FormItem>
                 <FormLabel>Name</FormLabel>
                 <FormControl>
-                  <Input {...field} autoComplete="name" placeholder="Your name" />
+                  <Input
+                    {...field}
+                    autoComplete="name"
+                    placeholder="Your name"
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -330,7 +357,7 @@ export default function BookingForm({
               <FormItem>
                 <FormLabel>Phone</FormLabel>
                 <FormControl>
-                  <Input {...field} type="tel" autoComplete="tel" placeholder="07700 900123" />
+                  <Input {...field} type="tel" autoComplete="tel" />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -345,10 +372,11 @@ export default function BookingForm({
                 <FormControl>
                   <Input
                     {...field}
-                    placeholder="M1 1AA"
                     inputMode="text"
                     autoComplete="postal-code"
-                    onChange={(event) => field.onChange(normalisePostcode(event.target.value))}
+                    onChange={(event) =>
+                      field.onChange(normalisePostcode(event.target.value))
+                    }
                   />
                 </FormControl>
                 <FormMessage />
@@ -361,7 +389,11 @@ export default function BookingForm({
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Service</FormLabel>
-                <Select onValueChange={field.onChange} value={field.value} defaultValue={field.value}>
+                <Select
+                  onValueChange={field.onChange}
+                  value={field.value}
+                  defaultValue={field.value}
+                >
                   <FormControl>
                     <SelectTrigger className="h-11 w-full">
                       <SelectValue placeholder="Select a service" />
@@ -411,10 +443,18 @@ export default function BookingForm({
           />
           <div className="md:col-span-2 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
             {cleanedAvailabilityNote && (
-              <p className="text-sm text-muted-foreground">{cleanedAvailabilityNote}</p>
+              <p className="text-sm text-muted-foreground">
+                {cleanedAvailabilityNote}
+              </p>
             )}
-            <Button type="submit" disabled={isSubmitting} className="dark:bg-sky-500">
-              {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+            <Button
+              type="submit"
+              disabled={isSubmitting}
+              className="dark:bg-sky-500"
+            >
+              {isSubmitting && (
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              )}
               {cleanedSubmitLabel}
             </Button>
           </div>

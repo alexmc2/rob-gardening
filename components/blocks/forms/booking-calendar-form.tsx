@@ -68,7 +68,7 @@ const bookingCalendarSchema = z
         message: 'Please add your postcode',
       })
       .regex(postcodeRegex, {
-        message: 'Enter a valid UK postcode (e.g. M1 1AA)',
+        message: 'Enter a valid UK postcode',
       }),
     service: z.string().min(1, {
       message: 'Select a service to book',
@@ -443,7 +443,7 @@ export default function BookingCalendarForm({
                             {...field}
                             type="tel"
                             autoComplete="tel"
-                            placeholder="07700 900123"
+         
                           />
                         </FormControl>
                         <FormMessage />
@@ -459,7 +459,7 @@ export default function BookingCalendarForm({
                         <FormControl>
                           <Input
                             {...field}
-                            placeholder="M1 1AA"
+                  
                             inputMode="text"
                             autoComplete="postal-code"
                             onChange={(event) =>

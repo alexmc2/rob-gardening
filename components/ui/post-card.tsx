@@ -3,6 +3,7 @@ import { cn, formatDate } from '@/lib/utils';
 import Image from 'next/image';
 import { urlFor } from '@/sanity/lib/image';
 import { POSTS_QUERYResult } from '@/sanity.types';
+import { Badge } from '@/components/ui/badge';
 
 type PostCard = NonNullable<POSTS_QUERYResult[number]>;
 
@@ -16,8 +17,12 @@ export default function PostCard({
   excerpt,
   image,
   _createdAt,
+  categories,
 }: PostCardProps) {
   const formattedDate = _createdAt ? formatDate(_createdAt) : null;
+  const categoryList = (categories ?? []).filter(
+    (category): category is NonNullable<typeof category> => Boolean(category?.title)
+  );
 
   return (
     <div
@@ -47,6 +52,15 @@ export default function PostCard({
           >
             {formattedDate}
           </time>
+        )}
+        {categoryList.length > 0 && (
+          <div className="flex flex-wrap gap-2">
+            {categoryList.map((category) => (
+              <Badge key={category._id ?? category.title ?? ''} variant="secondary">
+                {category.title}
+              </Badge>
+            ))}
+          </div>
         )}
         {title && (
           <h3 className={cn('text-xl font-semibold leading-snug text-foreground dark:text-foreground')}>{title}</h3>
