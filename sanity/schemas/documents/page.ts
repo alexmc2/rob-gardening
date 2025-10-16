@@ -56,13 +56,14 @@ export default defineType({
         { type: 'image-gallery' },
         { type: 'before-after-gallery' },
         { type: 'cloudinary-gallery' },
-        { type: 'reviews-carousel' },
+        { type: 'testimonials-carousel' },
         { type: 'timeline-row' },
         { type: 'cta-1' },
         { type: 'logo-cloud-1' },
         { type: 'faqs' },
         { type: 'form-newsletter' },
         { type: 'form-contact' },
+        { type: 'form-booking' },
         { type: 'location-map' },
         { type: 'all-posts' },
         { type: 'product-grid' },
@@ -122,9 +123,9 @@ export default defineType({
               of: ['image-gallery', 'before-after-gallery', 'cloudinary-gallery'],
             },
             {
-              name: 'reviews',
-              title: 'Reviews',
-              of: ['reviews-carousel'],
+              name: 'testimonials',
+              title: 'Testimonials',
+              of: ['testimonials-carousel'],
             },
             {
               name: 'timeline',
@@ -144,7 +145,7 @@ export default defineType({
             {
               name: 'forms',
               title: 'Forms',
-              of: ['form-newsletter', 'form-contact', 'location-map'],
+              of: ['form-newsletter', 'form-contact', 'form-booking', 'location-map'],
             },
             {
               name: 'all-posts',

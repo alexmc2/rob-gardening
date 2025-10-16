@@ -12,6 +12,7 @@ import {
   ShoppingBag,
   Package,
   Boxes,
+  CalendarCheck,
 } from "lucide-react";
 
 export const structure = (S: any, context: any) =>
@@ -106,6 +107,15 @@ export const structure = (S: any, context: any) =>
             .id("navigation")
             .schemaType("navigation")
             .documentId("navigation")
+        ),
+      S.listItem()
+        .title("Booking Settings")
+        .icon(CalendarCheck)
+        .child(
+          S.editor()
+            .id("bookingSettings")
+            .schemaType("bookingSettings")
+            .documentId("bookingSettings")
         ),
       S.listItem()
         .title("Settings")

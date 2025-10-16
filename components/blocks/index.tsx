@@ -3,6 +3,7 @@ import type { ComponentType } from 'react';
 
 import type { PAGE_QUERYResult } from '@/sanity.types';
 import type { ContactFormBlock } from '@/components/blocks/forms/contact-form';
+import type { BookingFormBlock } from '@/components/blocks/forms/booking-form';
 import type { FormContactMapBlock } from '@/components/blocks/forms/contact-map';
 import type { LocationMapBlock } from '@/components/blocks/location/location-map';
 import type { RichTextBlockProps } from '@/components/blocks/rich-text-block';
@@ -10,6 +11,7 @@ type Block = NonNullable<NonNullable<PAGE_QUERYResult>['blocks']>[number];
 type ExtendedBlock =
   | Block
   | ContactFormBlock
+  | BookingFormBlock
   | LocationMapBlock
   | FormContactMapBlock
   | RichTextBlockProps;
@@ -57,8 +59,8 @@ const componentLoaders = {
     import('@/components/blocks/gallery/cloudinary-gallery').then(
       (mod) => mod.default
     ),
-  'reviews-carousel': () =>
-    import('@/components/blocks/reviews/reviews-carousel').then(
+  'testimonials-carousel': () =>
+    import('@/components/blocks/testimonials/testimonials-carousel').then(
       (mod) => mod.default
     ),
   'timeline-row': () =>
@@ -76,6 +78,8 @@ const componentLoaders = {
     import('@/components/blocks/forms/newsletter').then((mod) => mod.default),
   'form-contact': () =>
     import('@/components/blocks/forms/contact-form').then((mod) => mod.default),
+  'form-booking': () =>
+    import('@/components/blocks/forms/booking-form').then((mod) => mod.default),
   'form-contact-map': () =>
     import('@/components/blocks/forms/contact-map').then((mod) => mod.default),
   'location-map': () =>

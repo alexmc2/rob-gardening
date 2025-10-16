@@ -9,6 +9,7 @@ import faq from "./schemas/documents/faq";
 import testimonial from "./schemas/documents/testimonial";
 import navigation from "./schemas/documents/navigation";
 import settings from "./schemas/documents/settings";
+import bookingSettings from "./schemas/documents/booking-settings";
 import product from "./schemas/documents/product";
 import collection from "./schemas/documents/collection";
 
@@ -55,13 +56,14 @@ import logoCloud1 from "./schemas/blocks/logo-cloud/logo-cloud-1";
 import faqs from "./schemas/blocks/faqs";
 import newsletter from "./schemas/blocks/forms/newsletter";
 import contactForm from "./schemas/blocks/forms/contact";
+import bookingForm from "./schemas/blocks/forms/booking";
 import contactMap from "./schemas/blocks/forms/contact-map";
 import locationMap from "./schemas/blocks/location/location-map";
 import allPosts from "./schemas/blocks/all-posts";
 import menuSection from "./schemas/blocks/menu-section";
 import menuGoogleSection from "./schemas/blocks/menu-google-section";
 import lottieAnimation from "./schemas/blocks/lottie-animation";
-import reviewsCarousel from "./schemas/blocks/reviews/reviews-carousel";
+import testimonialsCarousel from "./schemas/blocks/testimonials/testimonials-carousel";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
@@ -74,6 +76,7 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     testimonial,
     navigation,
     settings,
+    bookingSettings,
     product,
     collection,
     // shared objects
@@ -119,12 +122,13 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     faqs,
     newsletter,
     contactForm,
+    bookingForm,
     contactMap,
     locationMap,
     allPosts,
     menuSection,
     menuGoogleSection,
     lottieAnimation,
-    reviewsCarousel,
+    testimonialsCarousel,
   ],
 };

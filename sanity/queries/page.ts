@@ -12,13 +12,14 @@ import { carousel2Query } from "./carousel/carousel-2";
 import { imageGalleryQuery } from "./gallery/image-gallery";
 import { beforeAfterGalleryQuery } from "./gallery/before-after-gallery";
 import { cloudinaryGalleryQuery } from "./gallery/cloudinary-gallery";
-import { reviewsCarouselQuery } from "./reviews/reviews-carousel";
+import { testimonialsCarouselQuery } from "./testimonials/testimonials-carousel";
 import { timelineQuery } from "./timeline";
 import { cta1Query } from "./cta/cta-1";
 import { logoCloud1Query } from "./logo-cloud/logo-cloud-1";
 import { faqsQuery } from "./faqs";
 import { formNewsletterQuery } from "./forms/newsletter";
 import { formContactQuery } from "./forms/contact";
+import { formBookingQuery } from "./forms/booking";
 import { formContactMapQuery } from "./forms/contact-map";
 import { locationMapQuery } from "./location/location-map";
 import { allPostsQuery } from "./all-posts";
@@ -46,13 +47,14 @@ export const PAGE_QUERY = groq`
       ${imageGalleryQuery},
       ${beforeAfterGalleryQuery},
       ${cloudinaryGalleryQuery},
-      ${reviewsCarouselQuery},
+      ${testimonialsCarouselQuery},
       ${timelineQuery},
       ${cta1Query},
       ${logoCloud1Query},
       ${faqsQuery},
       ${formNewsletterQuery},
       ${formContactQuery},
+      ${formBookingQuery},
       ${formContactMapQuery},
       ${locationMapQuery},
       ${allPostsQuery},
