@@ -23,6 +23,7 @@ export type LocationMapBlock = {
   latitude?: number | null;
   longitude?: number | null;
   mapZoom?: number | null;
+  enableFadeIn?: boolean | null;
 };
 
 export type LocationMapLayout = "section" | "inline";
@@ -46,6 +47,7 @@ export default function LocationMap({
   longitude,
   mapZoom,
   layout = "section",
+  enableFadeIn,
 }: LocationMapProps) {
   const cleanedColor =
     layout === "section" && colorVariant ? stegaClean(colorVariant) : undefined;
@@ -169,7 +171,11 @@ export default function LocationMap({
   }
 
   return (
-    <SectionContainer color={cleanedColor} padding={padding}>
+    <SectionContainer
+      color={cleanedColor}
+      padding={padding}
+      enableFadeIn={enableFadeIn}
+    >
       {content}
     </SectionContainer>
   );

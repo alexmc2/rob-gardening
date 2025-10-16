@@ -73,8 +73,21 @@ export async function POST(request: Request) {
 
   try {
     const stripe = new Stripe(stripeSecretKey, {
-      apiVersion: "2024-11-20",
+      apiVersion: "2025-02-24.acacia",
     });
+
+    const shippingCountryRaw = parsedBody.shippingAddress.country.trim();
+
+    if (!/^[A-Za-z]{2}$/.test(shippingCountryRaw)) {
+      return NextResponse.json(
+        {
+          message: "Invalid shipping country code",
+        },
+        { status: 400 }
+      );
+    }
+
+    const shippingCountryCode = shippingCountryRaw.toUpperCase() as Stripe.Checkout.SessionCreateParams.ShippingAddressCollection.AllowedCountry;
 
     const lineItems: Stripe.Checkout.SessionCreateParams.LineItem[] = parsedBody.items.map(
       (item) => ({
@@ -93,7 +106,7 @@ export async function POST(request: Request) {
       order_notes: parsedBody.notes ?? "",
       shipping_method: parsedBody.shippingOption.id,
       shipping_city: parsedBody.shippingAddress.city,
-      shipping_country: parsedBody.shippingAddress.country,
+      shipping_country: shippingCountryCode,
     };
 
     const deliveryEstimate = (() => {
@@ -125,7 +138,7 @@ export async function POST(request: Request) {
       allow_promotion_codes: true,
       metadata,
       shipping_address_collection: {
-        allowed_countries: [parsedBody.shippingAddress.country],
+        allowed_countries: [shippingCountryCode],
       },
       shipping_options: [
         {

@@ -19,10 +19,27 @@ export async function generateStaticParams() {
   }));
 }
 
-export async function generateMetadata(props: {
-  params: { slug: string };
+type BlogPageParams = { slug: string };
+type BlogPageParamsInput = Promise<BlogPageParams> | undefined;
+
+const resolveParams = async (
+  params: BlogPageParamsInput
+): Promise<BlogPageParams> => {
+  const resolved = await params;
+
+  if (!resolved?.slug) {
+    notFound();
+  }
+
+  return resolved;
+};
+
+export async function generateMetadata({
+  params,
+}: {
+  params: BlogPageParamsInput;
 }): Promise<Metadata> {
-  const { slug } = props.params;
+  const { slug } = await resolveParams(params);
   const post = await fetchSanityPostBySlug({ slug });
 
   if (!post) {
@@ -32,11 +49,13 @@ export async function generateMetadata(props: {
   return generatePageMetadata({ page: post, slug: `Blog/${slug}` });
 }
 
-export default async function PostPage(props: {
-  params: { slug: string };
+export default async function PostPage({
+  params,
+}: {
+  params: BlogPageParamsInput;
 }) {
-  const { params } = props;
-  const post = await fetchSanityPostBySlug(params);
+  const routeParams = await resolveParams(params);
+  const post = await fetchSanityPostBySlug(routeParams);
 
   if (!post) {
     notFound();

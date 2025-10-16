@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { urlFor } from '@/sanity/lib/image';
 import { stegaClean } from 'next-sanity';
 import PortableTextRenderer from '@/components/portable-text-renderer';
-import { FadeIn } from '@/components/ui/fade.in';
+import { FadeIn } from '@/components/ui/fade-in';
 import { PAGE_QUERYResult } from '@/sanity.types';
 
 type Hero1Props = Extract<
@@ -19,6 +19,7 @@ export default function Hero1({
   body,
   image,
   links,
+  enableFadeIn,
 }: Hero1Props) {
   const dimensions = image?.asset?.metadata?.dimensions;
   const intrinsicWidth = Math.round(dimensions?.width ?? 1400);
@@ -43,12 +44,19 @@ export default function Hero1({
       : heroImageBuilder.url();
   }
 
+  const disableFade = enableFadeIn === false;
+
   return (
     <div className="container dark:bg-background py-20 lg:pt-40">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
         <div className="flex flex-col justify-center">
           {tagLine && (
-            <FadeIn as="h1" delay={120} className="leading-[0] font-sans">
+            <FadeIn
+              as="h1"
+              delay={120}
+              className="leading-[0] font-sans"
+              disabled={disableFade}
+            >
               <span className="text-base font-semibold">{tagLine}</span>
             </FadeIn>
           )}
@@ -57,17 +65,28 @@ export default function Hero1({
               as="h2"
               delay={220}
               className="mt-6 text-4xl font-bold leading-[1.1] md:text-5xl lg:text-6xl"
+              disabled={disableFade}
             >
               {title}
             </FadeIn>
           )}
           {body && (
-            <FadeIn as="div" delay={320} className="mt-6 text-lg">
+            <FadeIn
+              as="div"
+              delay={320}
+              className="mt-6 text-lg"
+              disabled={disableFade}
+            >
               <PortableTextRenderer value={body} />
             </FadeIn>
           )}
           {links && links.length > 0 && (
-            <FadeIn delay={420} className="mt-10 flex flex-wrap gap-4" as="div">
+            <FadeIn
+              delay={420}
+              className="mt-10 flex flex-wrap gap-4"
+              as="div"
+              disabled={disableFade}
+            >
               {links.map((link, index) => {
                 const linkKey = link._key ?? `${link.href ?? 'cta'}-${index}`;
                 const href = link.href ? stegaClean(link.href) : '#';
@@ -95,7 +114,7 @@ export default function Hero1({
         </div>
         <div className="flex flex-col justify-center">
           {image && image.asset?._id && heroImageUrl && (
-            <FadeIn delay={520}>
+            <FadeIn delay={520} disabled={disableFade}>
               <Image
                 className="rounded-xl"
                 src={heroImageUrl}

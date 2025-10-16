@@ -61,6 +61,7 @@ export type MenuGoogleSectionProps = {
   _type: 'menu-google-section';
   _key: string;
   padding?: SectionPadding | null;
+  enableFadeIn?: boolean | null;
   sectionId?: string | null;
   eyebrow?: string | null;
   title?: string | null;
@@ -1205,6 +1206,7 @@ export default function MenuGoogleSection(props: MenuGoogleSectionProps) {
       id={anchorId}
       padding={padding}
       color={backgroundVariant}
+      enableFadeIn={props.enableFadeIn}
       className="relative overflow-hidden bg-[color:var(--menu-background)] dark:bg-[color:var(--menu-background-dark)]"
       style={sectionStyle}
     >

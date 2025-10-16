@@ -2,6 +2,7 @@
 'use client';
 
 import { useId, useState } from 'react';
+import type { CSSProperties } from 'react';
 import Image from 'next/image';
 import { ArrowLeftRight } from 'lucide-react';
 
@@ -25,10 +26,12 @@ export type BeforeAfterGalleryItem = {
 
 type BeforeAfterGalleryClientProps = {
   items: BeforeAfterGalleryItem[];
+  maxHeight?: number;
 };
 
 export default function BeforeAfterGalleryClient({
   items,
+  maxHeight,
 }: BeforeAfterGalleryClientProps) {
   if (items.length === 0) {
     return null;
@@ -37,7 +40,7 @@ export default function BeforeAfterGalleryClient({
   return (
     <div className="space-y-14">
       {items.map((item) => (
-        <BeforeAfterCard key={item.id} item={item} />
+        <BeforeAfterCard key={item.id} item={item} maxHeight={maxHeight} />
       ))}
     </div>
   );
@@ -45,9 +48,10 @@ export default function BeforeAfterGalleryClient({
 
 type BeforeAfterCardProps = {
   item: BeforeAfterGalleryItem;
+  maxHeight?: number;
 };
 
-function BeforeAfterCard({ item }: BeforeAfterCardProps) {
+function BeforeAfterCard({ item, maxHeight }: BeforeAfterCardProps) {
   const [position, setPosition] = useState(50);
   const sliderId = useId();
 
@@ -55,6 +59,11 @@ function BeforeAfterCard({ item }: BeforeAfterCardProps) {
     item.afterImage.width > 0 && item.afterImage.height > 0
       ? `${item.afterImage.width} / ${item.afterImage.height}`
       : undefined;
+
+  const sizingStyle = {
+    ...(aspectRatio ? { aspectRatio } : {}),
+    ...(typeof maxHeight === 'number' ? { maxHeight: `${maxHeight}px` } : {}),
+  } satisfies CSSProperties;
 
   const comparisonLabel = item.title
     ? `${item.title} comparison`
@@ -87,7 +96,7 @@ function BeforeAfterCard({ item }: BeforeAfterCardProps) {
         </div>
       )}
 
-      <div className="relative" style={aspectRatio ? { aspectRatio } : undefined}>
+      <div className="relative" style={sizingStyle}>
         <div className="relative overflow-hidden rounded-3xl bg-muted/60 shadow-lg focus-within:ring-4 focus-within:ring-primary/35 focus-within:ring-offset-4 focus-within:ring-offset-background">
           <Image
             src={item.afterImage.src}

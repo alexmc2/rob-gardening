@@ -33,6 +33,7 @@ export type ContactFormBlock = {
   formspreeFormId?: string | null;
   submitButtonLabel?: string | null;
   successMessage?: string | null;
+  enableFadeIn?: boolean | null;
 };
 
 export type ContactFormLayout = 'section' | 'inline';
@@ -70,6 +71,7 @@ export default function ContactForm({
   submitButtonLabel,
   successMessage,
   layout = 'section',
+  enableFadeIn,
 }: FormContactProps) {
   const cleanedColor =
     layout === 'section' && colorVariant ? stegaClean(colorVariant) : undefined;
@@ -242,7 +244,11 @@ export default function ContactForm({
   }
 
   return (
-    <SectionContainer color={cleanedColor} padding={padding}>
+    <SectionContainer
+      color={cleanedColor}
+      padding={padding}
+      enableFadeIn={enableFadeIn}
+    >
       {content}
     </SectionContainer>
   );

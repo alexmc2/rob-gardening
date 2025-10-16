@@ -93,6 +93,7 @@ export default function LottieAnimationBlock({
   textOrientation,
   textPlacement,
   textSpacing,
+  enableFadeIn,
 }: LottieAnimationProps) {
   const resolvedColor = (stegaClean(colorVariant) || undefined) as
     | ColorVariant
@@ -175,6 +176,7 @@ export default function LottieAnimationBlock({
       color={resolvedColor}
       colorDark={resolvedColorDark}
       padding={padding}
+      enableFadeIn={enableFadeIn}
       className={cn(
         !hasTopPadding ? TOP_SPACING_CLASS_MAP[spacing] : undefined,
         !hasBottomPadding ? BOTTOM_SPACING_CLASS_MAP[spacing] : undefined

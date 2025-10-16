@@ -21,13 +21,18 @@ export default function Cta1({
   title,
   body,
   links,
+  enableFadeIn,
 }: Cta1Props) {
   const isNarrow = stegaClean(sectionWidth) === 'narrow';
   const align = stegaClean(stackAlign);
   const color = stegaClean(colorVariant);
 
   return (
-    <SectionContainer color={color} padding={padding}>
+    <SectionContainer
+      color={color}
+      padding={padding}
+      enableFadeIn={enableFadeIn}
+    >
       <div
         className={cn(
           align === 'center' ? 'max-w-[48rem] text-center mx-auto' : undefined,

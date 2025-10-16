@@ -18,6 +18,7 @@ export default function LogoCloud1({
   colorVariant,
   title,
   images,
+  enableFadeIn,
 }: LogoCloud1Props) {
   const color = stegaClean(colorVariant);
 
@@ -25,6 +26,7 @@ export default function LogoCloud1({
     <SectionContainer
       color={color}
       padding={padding}
+      enableFadeIn={enableFadeIn}
       className="overflow-hidden"
     >
       {title && (

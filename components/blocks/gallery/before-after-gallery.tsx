@@ -8,6 +8,14 @@ import BeforeAfterGalleryClient, {
 } from "./before-after-gallery-client";
 
 const SLIDER_TARGET_WIDTH = 1600;
+const SLIDER_SIZE_MAP = {
+  compact: 380,
+  comfortable: 520,
+  spacious: 680,
+  full: null,
+} as const;
+
+type SliderSizeKey = keyof typeof SLIDER_SIZE_MAP;
 
 type Block = NonNullable<NonNullable<PAGE_QUERYResult>["blocks"]>[number];
 type BeforeAfterGalleryBlock = Extract<Block, { _type: "before-after-gallery" }>;
@@ -19,11 +27,15 @@ export default function BeforeAfterGallery({
   colorVariant,
   heading,
   intro,
+  sliderSize,
   items,
+  enableFadeIn,
 }: BeforeAfterGalleryBlock) {
   const color = stegaClean(colorVariant);
   const cleanHeading = heading ? stegaClean(heading) : null;
   const cleanIntro = intro ? stegaClean(intro) : null;
+  const sliderSizeKey = resolveSliderSize(sliderSize);
+  const sliderMaxHeight = SLIDER_SIZE_MAP[sliderSizeKey];
 
   const parsedItems = (Array.isArray(items) ? items : [])
     .map((item, index) => mapBlockItemToGalleryItem(item, index))
@@ -34,7 +46,11 @@ export default function BeforeAfterGallery({
   }
 
   return (
-    <SectionContainer color={color} padding={padding}>
+    <SectionContainer
+      color={color}
+      padding={padding}
+      enableFadeIn={enableFadeIn}
+    >
       <div className="space-y-12">
         {(cleanHeading || cleanIntro) && (
           <div className="mx-auto max-w-2xl text-center">
@@ -50,10 +66,21 @@ export default function BeforeAfterGallery({
             )}
           </div>
         )}
-        <BeforeAfterGalleryClient items={parsedItems} />
+        <BeforeAfterGalleryClient
+          items={parsedItems}
+          maxHeight={sliderMaxHeight ?? undefined}
+        />
       </div>
     </SectionContainer>
   );
+}
+
+function resolveSliderSize(size: BeforeAfterGalleryBlock["sliderSize"]): SliderSizeKey {
+  if (size && typeof size === "string" && size in SLIDER_SIZE_MAP) {
+    return size as SliderSizeKey;
+  }
+
+  return "comfortable";
 }
 
 function mapBlockItemToGalleryItem(

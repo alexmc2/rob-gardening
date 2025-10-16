@@ -4,7 +4,7 @@ import SectionContainer from '@/components/ui/section-container';
 import { stegaClean } from 'next-sanity';
 
 import PortableTextRenderer from '@/components/portable-text-renderer';
-import { FadeIn } from '@/components/ui/fade.in';
+import { FadeIn } from '@/components/ui/fade-in';
 import { PAGE_QUERYResult } from '@/sanity.types';
 import type { PortableTextBlock } from '@portabletext/types';
 
@@ -21,10 +21,12 @@ export default function SectionHeader({
   tagLine,
   title,
   description,
+  enableFadeIn,
 }: SectionHeaderProps) {
   const isNarrow = stegaClean(sectionWidth) === 'narrow';
   const align = stegaClean(stackAlign);
   const color = stegaClean(colorVariant);
+  const disableFade = enableFadeIn === false;
 
   const descriptionBlocks = Array.isArray(description)
     ? (description as PortableTextBlock[])
@@ -51,7 +53,11 @@ export default function SectionHeader({
   const showTagLine = Boolean(tagLine);
 
   return (
-    <SectionContainer color={color} padding={padding}>
+    <SectionContainer
+      color={color}
+      padding={padding}
+      enableFadeIn={enableFadeIn}
+    >
       <div
         className={cn(
           align === 'center' ? 'max-w-[48rem] text-center mx-auto' : undefined,
@@ -61,7 +67,12 @@ export default function SectionHeader({
         )}
       >
         {showTagLine ? (
-          <FadeIn as="h1" delay={100} className="mt-0 mb-0 leading-[0]">
+          <FadeIn
+            as="h1"
+            delay={100}
+            className="mt-0 mb-0 leading-[0]"
+            disabled={disableFade}
+          >
             <span className="text-base font-semibold">{tagLine}</span>
           </FadeIn>
         ) : null}
@@ -70,6 +81,7 @@ export default function SectionHeader({
             as="h2"
             delay={200}
             className="mt-0 mb-0 text-3xl md:text-5xl"
+            disabled={disableFade}
           >
             {title}
           </FadeIn>
@@ -79,6 +91,7 @@ export default function SectionHeader({
             as="div"
             delay={300}
             className="text-base [&_p]:mt-0 [&_p:not(:last-child)]:mb-4 [&_a]:font-medium"
+            disabled={disableFade}
           >
             <PortableTextRenderer value={descriptionBlocks ?? []} spacing="none" />
           </FadeIn>

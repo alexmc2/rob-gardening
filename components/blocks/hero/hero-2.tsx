@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button1';
 import Link from 'next/link';
 import { stegaClean } from 'next-sanity';
 import PortableTextRenderer from '@/components/portable-text-renderer';
-import { FadeIn } from '@/components/ui/fade.in';
+import { FadeIn } from '@/components/ui/fade-in';
 import { PAGE_QUERYResult } from '@/sanity.types';
 
 type Hero2Props = Extract<
@@ -11,11 +11,23 @@ type Hero2Props = Extract<
   { _type: 'hero-2' }
 >;
 
-export default function Hero2({ tagLine, title, body, links }: Hero2Props) {
+export default function Hero2({
+  tagLine,
+  title,
+  body,
+  links,
+  enableFadeIn,
+}: Hero2Props) {
+  const disableFade = enableFadeIn === false;
   return (
     <div className="container dark:bg-background py-20 lg:pt-40 text-center">
       {tagLine && (
-        <FadeIn as="h1" delay={120} className="leading-[0] font-sans">
+        <FadeIn
+          as="h1"
+          delay={120}
+          className="leading-[0] font-sans"
+          disabled={disableFade}
+        >
           <span className="text-base font-semibold">{tagLine}</span>
         </FadeIn>
       )}
@@ -24,12 +36,18 @@ export default function Hero2({ tagLine, title, body, links }: Hero2Props) {
           as="h2"
           delay={220}
           className="mt-6 text-4xl font-bold leading-[1.1] md:text-5xl lg:text-6xl"
+          disabled={disableFade}
         >
           {title}
         </FadeIn>
       )}
       {body && (
-        <FadeIn as="div" delay={320} className="mx-auto mt-6 max-w-2xl text-lg">
+        <FadeIn
+          as="div"
+          delay={320}
+          className="mx-auto mt-6 max-w-2xl text-lg"
+          disabled={disableFade}
+        >
           <PortableTextRenderer value={body} />
         </FadeIn>
       )}
@@ -38,6 +56,7 @@ export default function Hero2({ tagLine, title, body, links }: Hero2Props) {
           as="div"
           delay={420}
           className="mt-10 flex flex-wrap justify-center gap-4"
+          disabled={disableFade}
         >
           {links.map((link, index) => {
             const linkKey = link._key ?? `${link.href ?? 'cta'}-${index}`;

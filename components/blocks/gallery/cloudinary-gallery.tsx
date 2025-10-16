@@ -213,7 +213,11 @@ export default async function CloudinaryGallery(block: CloudinaryGalleryBlock) {
   }
 
   return (
-    <SectionContainer color={color} padding={block.padding}>
+    <SectionContainer
+      color={color}
+      padding={block.padding}
+      enableFadeIn={block.enableFadeIn}
+    >
       <div className="mx-auto flex max-w-6xl flex-col items-center gap-6">
         {(cleanHeading || cleanIntro) && (
           <div className="max-w-3xl text-center">

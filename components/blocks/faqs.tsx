@@ -15,10 +15,19 @@ type FAQProps = Extract<
   { _type: "faqs" }
 >;
 
-export default function FAQs({ padding, colorVariant, faqs }: FAQProps) {
+export default function FAQs({
+  padding,
+  colorVariant,
+  faqs,
+  enableFadeIn,
+}: FAQProps) {
   const color = stegaClean(colorVariant);
   return (
-    <SectionContainer color={color} padding={padding}>
+    <SectionContainer
+      color={color}
+      padding={padding}
+      enableFadeIn={enableFadeIn}
+    >
       {faqs && faqs?.length > 0 && (
         <Accordion className="space-y-4" type="multiple">
           {faqs.map((faq) => (

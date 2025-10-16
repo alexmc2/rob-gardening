@@ -2,6 +2,8 @@
 import { defineField, defineType } from "sanity";
 import { ShoppingBag } from "lucide-react";
 
+import { fadeInField } from "./shared/fade-in";
+
 export default defineType({
   name: "product-grid",
   title: "Product Grid",
@@ -111,6 +113,7 @@ export default defineType({
       type: "color-variant",
       title: "Color Variant",
     }),
+    fadeInField(),
   ],
   preview: {
     select: {

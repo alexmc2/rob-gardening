@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { stegaClean } from 'next-sanity';
 import { cn } from '@/lib/utils';
 import SectionContainer from '@/components/ui/section-container';
-import { FadeIn } from '@/components/ui/fade.in';
+import { FadeIn, type FadeInProps } from '@/components/ui/fade-in';
 import { urlFor } from '@/sanity/lib/image';
 import type { PAGE_QUERYResult, ColorVariant } from '@/sanity.types';
 import type { CSSProperties } from 'react';
@@ -158,6 +158,7 @@ export default function MenuSection({
   lottieAnimation,
   lottiePlacement,
   imagePlacement,
+  enableFadeIn,
   imageLayout,
 }: MenuSectionProps) {
   const anchorId = sectionId ? stegaClean(sectionId) : undefined;
@@ -217,6 +218,10 @@ export default function MenuSection({
     'sans') as keyof typeof HEADING_FONT_CLASS;
   const headingFontClass =
     HEADING_FONT_CLASS[sanitizedHeadingFont] || HEADING_FONT_CLASS.sans;
+
+  const FadeMaybe = (props: FadeInProps) => (
+    <FadeIn {...props} disabled={enableFadeIn === false} />
+  );
 
   const filteredCategories = (categories || []).filter(
     (category): category is MenuCategoryType => {
@@ -315,6 +320,7 @@ export default function MenuSection({
       id={anchorId || undefined}
       color={colorVariant}
       padding={padding}
+      enableFadeIn={enableFadeIn}
       className={cn(
         'overflow-hidden',
         sanitizedStyle === 'image' && 'bg-background'
@@ -358,7 +364,7 @@ export default function MenuSection({
 
         <div className={gridColumnsClass}>
           {hasLeftColumn ? (
-            <FadeIn as="aside" delay={120} className="flex flex-col gap-8">
+            <FadeMaybe as="aside" delay={120} className="flex flex-col gap-8">
               <MenuImageGallery
                 images={leftImages}
                 layout={sanitizedImageLayout}
@@ -372,26 +378,26 @@ export default function MenuSection({
                   />
                 </div>
               ) : null}
-            </FadeIn>
+            </FadeMaybe>
           ) : null}
 
           {hasCentralColumn ? (
-            <FadeIn as="div" delay={160} className="flex flex-col gap-10">
+            <FadeMaybe as="div" delay={160} className="flex flex-col gap-10">
               {hasHeadingContent ? (
                 <div className="flex flex-col gap-6">
                   {eyebrow ? (
-                    <FadeIn
+                    <FadeMaybe
                       as="p"
                       delay={200}
                       className="text-sm font-semibold uppercase tracking-[0.3em] text-muted-foreground"
                     >
                       {eyebrow}
-                    </FadeIn>
+                    </FadeMaybe>
                   ) : null}
                   {title || intro ? (
                     <div className="flex flex-col gap-6">
                       {title ? (
-                        <FadeIn
+                        <FadeMaybe
                           as="h2"
                           delay={240}
                           className={cn(
@@ -400,26 +406,26 @@ export default function MenuSection({
                           )}
                         >
                           {title}
-                        </FadeIn>
+                        </FadeMaybe>
                       ) : null}
                       {intro ? (
-                        <FadeIn
+                        <FadeMaybe
                           as="p"
                           delay={280}
                           className="max-w-xl text-lg text-muted-foreground"
                         >
                           {intro}
-                        </FadeIn>
+                        </FadeMaybe>
                       ) : null}
                     </div>
                   ) : null}
                   {shouldShowHeadingLottie ? (
-                    <FadeIn delay={320} className="w-40 sm:w-48">
+                    <FadeMaybe delay={320} className="w-40 sm:w-48">
                       <MenuLottie
                         src={lottieUrl!}
                         ariaLabel="Menu accent animation"
                       />
-                    </FadeIn>
+                    </FadeMaybe>
                   ) : null}
                 </div>
               ) : null}
@@ -436,7 +442,7 @@ export default function MenuSection({
                         : `${category?.title || 'category'}-${index}`;
 
                     return (
-                      <FadeIn
+                      <FadeMaybe
                         as="section"
                         key={categoryKey}
                         delay={360 + index * 140}
@@ -498,25 +504,25 @@ export default function MenuSection({
                             );
                           })}
                         </div>
-                      </FadeIn>
+                      </FadeMaybe>
                     );
                   })}
                 </div>
               ) : null}
 
               {fallbackAsideToCenter ? (
-                <FadeIn delay={380} className="self-end w-32 sm:w-40">
+                <FadeMaybe delay={380} className="self-end w-32 sm:w-40">
                   <MenuLottie
                     src={lottieUrl!}
                     ariaLabel="Decorative animation"
                   />
-                </FadeIn>
+                </FadeMaybe>
               ) : null}
-            </FadeIn>
+            </FadeMaybe>
           ) : null}
 
           {hasRightColumn ? (
-            <FadeIn as="aside" delay={200} className="flex flex-col gap-8">
+            <FadeMaybe as="aside" delay={200} className="flex flex-col gap-8">
               <MenuImageGallery
                 images={rightImages}
                 layout={sanitizedImageLayout}
@@ -530,7 +536,7 @@ export default function MenuSection({
                   />
                 </div>
               ) : null}
-            </FadeIn>
+            </FadeMaybe>
           ) : null}
         </div>
 
@@ -538,9 +544,9 @@ export default function MenuSection({
         !hasLeftColumn &&
         !hasRightColumn &&
         images.length > 0 ? (
-          <FadeIn delay={160} className="relative z-10 mt-12">
+          <FadeMaybe delay={160} className="relative z-10 mt-12">
             <MenuImageGallery images={images} layout={sanitizedImageLayout} />
-          </FadeIn>
+          </FadeMaybe>
         ) : null}
       </div>
     </SectionContainer>

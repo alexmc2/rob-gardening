@@ -32,11 +32,16 @@ export default function GridRow({
   colorVariant,
   gridColumns,
   columns,
+  enableFadeIn,
 }: GridRow) {
   const color = stegaClean(colorVariant);
 
   return (
-    <SectionContainer color={color} padding={padding}>
+    <SectionContainer
+      color={color}
+      padding={padding}
+      enableFadeIn={enableFadeIn}
+    >
       {columns && columns?.length > 0 && (
         <div
           className={cn(

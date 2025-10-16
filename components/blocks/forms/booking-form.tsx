@@ -135,6 +135,7 @@ export default function BookingForm({
   successMessage,
   outOfAreaMessage,
   settings,
+  enableFadeIn,
 }: BookingFormBlock) {
   const cleanedColor = colorVariant ? stegaClean(colorVariant) : undefined;
   const cleanedHeading = cleanString(heading);
@@ -260,7 +261,11 @@ export default function BookingForm({
 
   if (!cleanedSettings?.id) {
     return (
-      <SectionContainer color={cleanedColor} padding={padding}>
+      <SectionContainer
+        color={cleanedColor}
+        padding={padding}
+        enableFadeIn={enableFadeIn}
+      >
         <div className="mx-auto max-w-2xl rounded-xl border border-dashed border-border/70 bg-muted/40 p-8 text-center text-muted-foreground">
           <p className="font-medium">
             Add booking settings in Sanity to enable this form.
@@ -276,7 +281,11 @@ export default function BookingForm({
 
   if (!serviceOptions.length) {
     return (
-      <SectionContainer color={cleanedColor} padding={padding}>
+      <SectionContainer
+        color={cleanedColor}
+        padding={padding}
+        enableFadeIn={enableFadeIn}
+      >
         <div className="mx-auto max-w-2xl rounded-xl border border-dashed border-border/70 bg-muted/40 p-8 text-center text-muted-foreground">
           <p className="font-medium">
             Add at least one service option in Sanity to enable bookings.
@@ -464,7 +473,11 @@ export default function BookingForm({
   );
 
   return (
-    <SectionContainer color={cleanedColor} padding={padding}>
+    <SectionContainer
+      color={cleanedColor}
+      padding={padding}
+      enableFadeIn={enableFadeIn}
+    >
       <div className="mx-auto max-w-3xl rounded-2xl border border-border/60 bg-background/80 p-8 shadow-sm backdrop-blur">
         {sectionChildren}
       </div>

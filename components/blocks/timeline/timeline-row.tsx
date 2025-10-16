@@ -13,11 +13,16 @@ export default function TimelineRow({
   padding,
   colorVariant,
   timelines,
+  enableFadeIn,
 }: TimelineRow) {
   const color = stegaClean(colorVariant) as ColorVariant;
 
   return (
-    <SectionContainer color={color} padding={padding}>
+    <SectionContainer
+      color={color}
+      padding={padding}
+      enableFadeIn={enableFadeIn}
+    >
       {timelines && timelines?.length > 0 && (
         <div className="max-w-[48rem] mx-auto">
           {timelines?.map((timeline, index) => (

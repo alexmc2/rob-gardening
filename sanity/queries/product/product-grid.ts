@@ -1,6 +1,8 @@
 // sanity/queries/product/product-grid.ts
 import { groq } from "next-sanity";
 
+import { fadeInQuery } from "../shared/fade-in";
+
 // @sanity-typegen-ignore
 export const productGridQuery = groq`
   _type == "product-grid" => {
@@ -28,6 +30,7 @@ export const productGridQuery = groq`
       showComparePrice,
       showQuickView,
       cardLayout
-    }
+    },
+    ${fadeInQuery}
   }
 `;

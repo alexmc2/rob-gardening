@@ -31,6 +31,7 @@ export type RichTextBlockProps = {
   textColorVariant?: RichTextStyleOptions["textColor"] | null;
   spacing?: RichTextStyleOptions["spacing"] | null;
   body?: RichTextBody | null;
+  enableFadeIn?: boolean | null;
 };
 
 export type RichTextContentProps = Pick<
@@ -102,6 +103,7 @@ export default function RichTextBlock({
   textColorVariant,
   spacing,
   body,
+  enableFadeIn,
 }: RichTextBlockProps) {
   const color = sanitizeString(colorVariant) as ColorVariant | undefined;
   const colorDark = sanitizeString(colorVariantDark) as ColorVariant | undefined;
@@ -111,6 +113,7 @@ export default function RichTextBlock({
       color={color ?? undefined}
       colorDark={colorDark ?? undefined}
       padding={padding}
+      enableFadeIn={enableFadeIn}
     >
       <RichTextContent
         body={body}

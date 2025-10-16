@@ -1,6 +1,10 @@
 import paypal from "@paypal/checkout-server-sdk";
 
-export type PayPalClient = paypal.core.PayPalHttpClient;
+type PayPalSdk = typeof paypal;
+
+export type PayPalClient = InstanceType<
+  PayPalSdk["core"]["PayPalHttpClient"]
+>;
 
 export function createPayPalClient(): PayPalClient {
   const clientId = process.env.PAYPAL_CLIENT_ID;

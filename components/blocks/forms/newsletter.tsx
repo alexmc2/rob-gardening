@@ -30,6 +30,7 @@ export default function FormNewsletter({
   consentText,
   buttonText,
   successMessage,
+  enableFadeIn,
 }: FormNewsletterProps) {
   // form validation schema
   const formSchema = z.object({
@@ -88,7 +89,11 @@ export default function FormNewsletter({
   const color = stegaClean(colorVariant);
 
   return (
-    <SectionContainer color={color} padding={padding}>
+    <SectionContainer
+      color={color}
+      padding={padding}
+      enableFadeIn={enableFadeIn}
+    >
       <Form {...form}>
         <form className="pt-8" onSubmit={form.handleSubmit(onSubmit)}>
           <div className="flex gap-4">

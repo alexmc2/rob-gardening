@@ -13,12 +13,17 @@ type AllPostsProps = Extract<
 export default async function AllPosts({
   padding,
   colorVariant,
+  enableFadeIn,
 }: AllPostsProps) {
   const color = stegaClean(colorVariant);
   const posts = await fetchSanityPosts();
 
   return (
-    <SectionContainer color={color} padding={padding}>
+    <SectionContainer
+      color={color}
+      padding={padding}
+      enableFadeIn={enableFadeIn}
+    >
       <PostGrid posts={posts ?? []} />
     </SectionContainer>
   );

@@ -22,7 +22,6 @@ import sectionPadding from "./schemas/blocks/shared/section-padding";
 import lottieAsset from "./schemas/objects/lottie-asset";
 import heroFlex from "./schemas/objects/hero_flex";
 import productVariant from "./schemas/objects/product-variant";
-import bookingWeeklyAvailabilityDay from "./schemas/objects/booking-weekly-availability-day";
 import cloudinaryGalleryImage from "./schemas/objects/cloudinary-gallery-image";
 // Schema UI objects
 import hero1 from "./schemas/blocks/hero/hero-1";
@@ -90,7 +89,6 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     lottieAsset,
     heroFlex,
     productVariant,
-    bookingWeeklyAvailabilityDay,
     cloudinaryGalleryImage,
     // blocks
     hero1,

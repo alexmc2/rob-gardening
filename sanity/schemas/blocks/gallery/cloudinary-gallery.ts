@@ -74,7 +74,9 @@ export default defineType({
         "Optional list of image overrides. Leave empty when using a folder to auto-load images, or add entries to override captions and alt text.",
       validation: (rule) =>
         rule.custom((images, context) => {
-          const folderPrefix = context?.parent?.folderPrefix;
+          const folderPrefix = (
+            context?.parent as { folderPrefix?: string } | undefined
+          )?.folderPrefix;
           const imageCount = Array.isArray(images) ? images.length : 0;
 
           if (!folderPrefix && imageCount === 0) {

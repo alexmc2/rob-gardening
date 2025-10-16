@@ -12,6 +12,7 @@ export const beforeAfterGalleryQuery = groq`
     colorVariant,
     heading,
     intro,
+    sliderSize,
     items[]{
       _key,
       title,

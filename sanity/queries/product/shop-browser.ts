@@ -1,6 +1,8 @@
 // sanity/queries/product/shop-browser.ts
 import { groq } from "next-sanity";
 
+import { fadeInQuery } from "../shared/fade-in";
+
 // @sanity-typegen-ignore
 export const shopBrowserQuery = groq`
   _type == "shop-browser" => {
@@ -53,6 +55,7 @@ export const shopBrowserQuery = groq`
       cardLayout
     },
     padding,
-    colorVariant
+    colorVariant,
+    ${fadeInQuery}
   }
 `;

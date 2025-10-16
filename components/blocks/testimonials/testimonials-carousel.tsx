@@ -11,7 +11,7 @@ import {
 } from '@/components/ui/carousel';
 import { StarRating } from '@/components/ui/star-rating';
 import { Button } from '@/components/ui/button1';
-import { FadeIn } from '@/components/ui/fade.in';
+import { FadeIn, type FadeInProps } from '@/components/ui/fade-in';
 import Link from 'next/link';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import type { PAGE_QUERYResult } from '@/sanity.types';
@@ -96,52 +96,57 @@ export default function TestimonialsCarousel(block: TestimonialsCarouselBlock) {
     : 'default';
 
   const hasCarousel = testimonials.length > 0;
+  const disableFade = block.enableFadeIn === false;
+  const FadeMaybe = (props: FadeInProps) => (
+    <FadeIn {...props} disabled={disableFade} />
+  );
 
   return (
     <SectionContainer
       color={color}
       padding={padding}
       id={sectionId}
+      enableFadeIn={block.enableFadeIn}
       className="py-16 lg:py-24"
     >
-      <FadeIn
+      <FadeMaybe
         as="div"
         delay={120}
         className="mx-auto flex max-w-5xl flex-col gap-12 text-center"
       >
         <div className="space-y-6">
           {eyebrow ? (
-            <FadeIn
+            <FadeMaybe
               as="p"
               delay={160}
               className="text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground"
             >
               {eyebrow}
-            </FadeIn>
+            </FadeMaybe>
           ) : null}
 
           {heading ? (
-            <FadeIn
+            <FadeMaybe
               as="h2"
               delay={200}
               className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl"
             >
               {heading}
-            </FadeIn>
+            </FadeMaybe>
           ) : null}
 
           {intro ? (
-            <FadeIn
+            <FadeMaybe
               delay={240}
               className="mx-auto max-w-2xl text-base leading-relaxed text-muted-foreground"
             >
               {intro}
-            </FadeIn>
+            </FadeMaybe>
           ) : null}
         </div>
 
         {hasCarousel ? (
-          <FadeIn delay={320} className="relative">
+          <FadeMaybe delay={320} className="relative">
             <Carousel
               className="mx-auto max-w-5xl"
               opts={{ loop: testimonials.length > 1 }}
@@ -166,19 +171,19 @@ export default function TestimonialsCarousel(block: TestimonialsCarouselBlock) {
                 <CarouselDots className="static mt-12 flex justify-center" />
               ) : null}
             </Carousel>
-          </FadeIn>
+          </FadeMaybe>
         ) : (
-          <FadeIn
+          <FadeMaybe
             as="p"
             delay={320}
             className="mx-auto max-w-xl text-sm text-muted-foreground"
           >
             Testimonials are being gathered and will appear here soon.
-          </FadeIn>
+          </FadeMaybe>
         )}
 
         {ctaHref ? (
-          <FadeIn as="div" delay={400} className="flex justify-center">
+          <FadeMaybe as="div" delay={400} className="flex justify-center">
             <Button asChild variant={buttonVariant ?? 'default'}>
               <Link
                 href={ctaHref}
@@ -188,9 +193,9 @@ export default function TestimonialsCarousel(block: TestimonialsCarouselBlock) {
                 {ctaLabel}
               </Link>
             </Button>
-          </FadeIn>
+          </FadeMaybe>
         ) : null}
-      </FadeIn>
+      </FadeMaybe>
     </SectionContainer>
   );
 }

@@ -43,6 +43,23 @@ export default defineType({
           .warning("Aim for short introductions no longer than a tweet."),
     }),
     defineField({
+      name: "sliderSize",
+      type: "string",
+      title: "Slider Size",
+      description:
+        "Control the maximum height of the comparison slider on larger screens.",
+      initialValue: "comfortable",
+      options: {
+        layout: "radio",
+        list: [
+          { title: "Compact", value: "compact" },
+          { title: "Comfortable", value: "comfortable" },
+          { title: "Spacious", value: "spacious" },
+          { title: "Full Height", value: "full" },
+        ],
+      },
+    }),
+    defineField({
       name: "items",
       title: "Comparisons",
       type: "array",

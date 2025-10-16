@@ -4,7 +4,7 @@ import type { CSSProperties } from 'react';
 import Image from 'next/image';
 import { urlFor } from '@/sanity/lib/image';
 import PortableTextRenderer from '@/components/portable-text-renderer';
-import { FadeIn } from '@/components/ui/fade.in';
+import { FadeIn } from '@/components/ui/fade-in';
 import { cn } from '@/lib/utils';
 import { HeroFullCarousel } from './hero-full-carousel';
 
@@ -20,6 +20,7 @@ type HeroFullProps = {
   overlayStrength?: number | null;
   contentAlignment?: 'left' | 'center' | 'right' | null;
   initialHeaderVisible?: boolean | null;
+  enableFadeIn?: boolean | null;
 };
 
 export default function HeroFull({
@@ -34,6 +35,7 @@ export default function HeroFull({
   overlayStrength = 50,
   contentAlignment = 'center',
   initialHeaderVisible = false,
+  enableFadeIn,
 }: HeroFullProps) {
   const isFullScreen = !height || height === 'screen';
   const resolvedMinHeight = !isFullScreen ? height || '60vh' : undefined;
@@ -50,6 +52,7 @@ export default function HeroFull({
       : contentAlignment === 'right'
         ? 'text-center lg:text-right'
         : 'text-center';
+  const disableFade = enableFadeIn === false;
   const cardClasses = cn(
     frosted && 'hero-blur',
     'w-full text-white sm:w-auto',
@@ -146,12 +149,18 @@ export default function HeroFull({
                   as="p"
                   delay={120}
                   className="text-sm font-semibold tracking-wide opacity-90"
+                  disabled={disableFade}
                 >
                   {tagLine}
                 </FadeIn>
               )}
               {title && (
-                <FadeIn as="h1" delay={200} className=" text-4.5xl md:text-7xl">
+                <FadeIn
+                  as="h1"
+                  delay={200}
+                  className=" text-4.5xl md:text-7xl"
+                  disabled={disableFade}
+                >
                   {title}
                 </FadeIn>
               )}
@@ -160,6 +169,7 @@ export default function HeroFull({
                   as="div"
                   delay={260}
                   className=" sm:text-3xl text-2xl pt-2"
+                  disabled={disableFade}
                 >
                   <PortableTextRenderer value={body} />
                 </FadeIn>

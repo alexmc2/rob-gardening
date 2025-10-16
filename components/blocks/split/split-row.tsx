@@ -41,6 +41,7 @@ export default function SplitRow({
   sectionId,
   noGap,
   splitColumns,
+  enableFadeIn,
 }: SplitRowWithAnchor) {
   const color = (stegaClean(colorVariant) || undefined) as
     | ColorVariant
@@ -56,6 +57,7 @@ export default function SplitRow({
       colorDark={colorDark}
       padding={padding}
       id={anchorId}
+      enableFadeIn={enableFadeIn}
     >
       {splitColumns && splitColumns?.length > 0 && (
         <div

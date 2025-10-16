@@ -58,6 +58,7 @@ export default function FormContactMap({
   latitude,
   longitude,
   mapZoom,
+  enableFadeIn,
 }: FormContactMapBlock) {
   const cleanedColor = colorVariant ? stegaClean(colorVariant) : undefined;
   const cleanedHeading = cleanString(heading) ?? 'Get in touch';
@@ -149,7 +150,11 @@ export default function FormContactMap({
   const hasMap = Boolean(mapSrc);
 
   return (
-    <SectionContainer color={cleanedColor} padding={padding}>
+    <SectionContainer
+      color={cleanedColor}
+      padding={padding}
+      enableFadeIn={enableFadeIn}
+    >
       <div className="grid gap-10 lg:grid-cols-2">
         <div className="space-y-8">
           <div className="space-y-4">

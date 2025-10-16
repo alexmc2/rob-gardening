@@ -32,6 +32,7 @@ export default function ImageGallery({
   images,
   desktopColumns,
   dateOrder,
+  enableFadeIn,
 }: ImageGalleryBlock) {
   const color = stegaClean(colorVariant);
   const cleanHeading = heading ? stegaClean(heading) : null;
@@ -138,7 +139,11 @@ export default function ImageGallery({
   }
 
   return (
-    <SectionContainer color={color} padding={padding}>
+    <SectionContainer
+      color={color}
+      padding={padding}
+      enableFadeIn={enableFadeIn}
+    >
       <div className="">
         {(cleanHeading || cleanIntro) && (
           <div className="mx-auto mb-10 text-center">

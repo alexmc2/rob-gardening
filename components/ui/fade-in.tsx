@@ -52,6 +52,7 @@ export type FadeInProps = {
   once?: boolean;
   threshold?: number;
   rootMargin?: string;
+  disabled?: boolean;
 } & Omit<HTMLAttributes<HTMLElement>, 'children'>;
 
 export function FadeIn({
@@ -66,8 +67,19 @@ export function FadeIn({
   once = true,
   threshold = 0.15,
   rootMargin = '0px 0px -10% 0px',
+  disabled = false,
   ...rest
 }: FadeInProps) {
+  const Component = (asChild ? Slot : (as ?? 'div')) as ElementType;
+
+  if (disabled) {
+    return (
+      <Component className={className} style={style} {...rest}>
+        {children}
+      </Component>
+    );
+  }
+
   const prefersReducedMotion = usePrefersReducedMotion();
   const [isVisible, setIsVisible] = useState(prefersReducedMotion);
   const elementRef = useRef<HTMLElement | null>(null);
@@ -112,8 +124,6 @@ export function FadeIn({
   const setRefs = useCallback((node: HTMLElement | null) => {
     elementRef.current = node;
   }, []);
-
-  const Component = (asChild ? Slot : (as ?? 'div')) as ElementType;
 
   const styleWithMotion: FadeInStyle = { ...(style as FadeInStyle) };
 

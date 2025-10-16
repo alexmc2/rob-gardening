@@ -46,13 +46,18 @@ export default function Carousel1({
   size = "one",
   indicators = "none",
   images,
+  enableFadeIn,
 }: Carousel1Props) {
   const color = stegaClean(colorVariant);
   const stegaIndicators = stegaClean(indicators);
   const stegaSize = stegaClean(size) as CarouselSize;
 
   return (
-    <SectionContainer color={color} padding={padding}>
+    <SectionContainer
+      color={color}
+      padding={padding}
+      enableFadeIn={enableFadeIn}
+    >
       {images && images.length > 0 && (
         <Carousel>
           <CarouselContent>

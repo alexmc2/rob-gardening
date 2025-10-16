@@ -25,11 +25,16 @@ export default function Carousel2({
   padding,
   colorVariant,
   testimonial,
+  enableFadeIn,
 }: Carousel2Props) {
   const color = stegaClean(colorVariant);
 
   return (
-    <SectionContainer color={color} padding={padding}>
+    <SectionContainer
+      color={color}
+      padding={padding}
+      enableFadeIn={enableFadeIn}
+    >
       {testimonial && testimonial.length > 0 && (
         <Carousel>
           <CarouselContent>

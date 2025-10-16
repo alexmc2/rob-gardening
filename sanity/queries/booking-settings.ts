@@ -10,11 +10,6 @@ export const BOOKING_SETTINGS_FIELDS = `
   serviceAreaLabel,
   successMessage,
   notificationEmail,
-  weeklyAvailability[]{
-    day,
-    availability,
-    slots
-  },
 `;
 
 export const BOOKING_SETTINGS_BY_ID_QUERY = groq`

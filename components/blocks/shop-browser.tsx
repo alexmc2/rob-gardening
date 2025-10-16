@@ -20,7 +20,9 @@ const cleanString = (value?: string | null) =>
 type ShopBrowserBlockProps = Extract<
   NonNullable<NonNullable<PAGE_QUERYResult>["blocks"]>[number],
   { _type: "shop-browser" }
->;
+> & {
+  enableFadeIn?: boolean | null;
+};
 
 const toId = (value: unknown): string | undefined => {
   if (!value) {
@@ -161,6 +163,7 @@ export default async function ShopBrowserBlock({
   padding,
   colorVariant,
   grid,
+  enableFadeIn,
 }: ShopBrowserBlockProps) {
   const selectionModeRaw = selection?.mode ? stegaClean(selection.mode) : "all";
   const selectionMode =
@@ -213,7 +216,11 @@ export default async function ShopBrowserBlock({
   const color = colorVariant ? (stegaClean(colorVariant) as typeof colorVariant) : undefined;
 
   return (
-    <SectionContainer color={color} padding={padding}>
+    <SectionContainer
+      color={color}
+      padding={padding}
+      enableFadeIn={enableFadeIn}
+    >
       <div className="flex flex-col gap-12">
         {showHero && (
           <div className="mx-auto flex max-w-4xl flex-col gap-4 text-center">

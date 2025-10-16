@@ -1,4 +1,5 @@
 // components/ui/section-container.tsx
+import { FadeIn } from "@/components/ui/fade-in";
 import { cn } from "@/lib/utils";
 import { SectionPadding, ColorVariant } from "@/sanity.types";
 
@@ -117,6 +118,7 @@ interface SectionContainerProps {
   className?: string;
   id?: string | null;
   style?: React.CSSProperties;
+  enableFadeIn?: boolean | null;
 }
 
 export default function SectionContainer({
@@ -127,6 +129,7 @@ export default function SectionContainer({
   className,
   id,
   style,
+  enableFadeIn,
 }: SectionContainerProps) {
   const resolveBackgroundClasses = (variant?: ColorVariant | null) => {
     if (!variant) {
@@ -145,6 +148,9 @@ export default function SectionContainer({
 
   const backgroundClassDark = overrideDarkClass ?? fallbackDarkClass;
 
+  const shouldAnimate = enableFadeIn !== false;
+  const content = <div className="container">{children}</div>;
+
   return (
     <div
       id={id ?? undefined}
@@ -159,7 +165,7 @@ export default function SectionContainer({
       )}
       style={style}
     >
-      <div className="container">{children}</div>
+      {shouldAnimate ? <FadeIn>{content}</FadeIn> : content}
     </div>
   );
 }

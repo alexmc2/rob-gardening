@@ -2,6 +2,8 @@
 import { defineArrayMember, defineField, defineType } from "sanity";
 import { ShoppingBag } from "lucide-react";
 
+import { fadeInField } from "./shared/fade-in";
+
 const SORT_OPTIONS = [
   { title: "Featured", value: "featured" },
   { title: "Price: Low to High", value: "price-asc" },
@@ -250,6 +252,7 @@ export default defineType({
     }),
     defineField({ name: "padding", type: "section-padding", group: "display" }),
     defineField({ name: "colorVariant", type: "color-variant", group: "display" }),
+    fadeInField({ group: "display" }),
   ],
   preview: {
     prepare() {
