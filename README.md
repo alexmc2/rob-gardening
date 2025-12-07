@@ -2,7 +2,9 @@
 
 This starter is a part of [Schema UI](https://schemaui.com) project, a comprehensive page builder that provides production-ready React components with pre-built Sanity schemas and GROQ queries, enabling rapid development of content-driven websites with Sanity CMS and Next.js.
 
-![Screenshot of Sanity Studio using Presentation Tool to do Visual Editing](https://cdn.sanity.io/images/a03xrv11/production/e83fee6a672a9df53548878eccddc0f962d1cac8-1920x931.webp)
+![site](./public/site.png)
+
+![editing](./public/editing.png)
 
 [![Next.js][next-js]][next-js-url] [![Sanity][sanity]][sanity-url] [![React][react]][react-url] [![Typescript][typescript]][typescript-url] [![Tailwind][tailwind]][tailwind-url] [![Shadcn][shadcn]][shadcn-url]
 
@@ -84,48 +86,58 @@ This template includes all components from the [Schema UI](https://schemaui.com/
 
 ```json5
 {
-  "_type": "hero-flex",
-  "variant": "split",
-  "minHeight": "80vh",
-  "textAlign": "left",
-  "mediaPosition": "right",
-  "title": "Design without creative limits",
-  "titleStyles": {
-    "font": "display",
-    "size": "2xl",
-    "weight": "700"
+  _type: 'hero-flex',
+  variant: 'split',
+  minHeight: '80vh',
+  textAlign: 'left',
+  mediaPosition: 'right',
+  title: 'Design without creative limits',
+  titleStyles: {
+    font: 'display',
+    size: '2xl',
+    weight: '700',
   },
-  "ctas": [
-    { "_key": "primary", "label": "Start a project", "href": "/contact", "style": "primary" },
-    { "_key": "ghost", "label": "Explore features", "href": "/features", "style": "ghost" }
+  ctas: [
+    {
+      _key: 'primary',
+      label: 'Start a project',
+      href: '/contact',
+      style: 'primary',
+    },
+    {
+      _key: 'ghost',
+      label: 'Explore features',
+      href: '/features',
+      style: 'ghost',
+    },
   ],
-  "media": {
-    "type": "lottie",
-    "align": "center",
-    "fit": "contain",
-    "widthMode": "percent",
-    "widthValue": 80,
-    "lottie": {
-      "file": { "asset": { "_ref": "file-<your-lottie-asset-id>" } },
-      "ariaLabel": "Abstract neon spheres pulsing"
-    }
+  media: {
+    type: 'lottie',
+    align: 'center',
+    fit: 'contain',
+    widthMode: 'percent',
+    widthValue: 80,
+    lottie: {
+      file: { asset: { _ref: 'file-<your-lottie-asset-id>' } },
+      ariaLabel: 'Abstract neon spheres pulsing',
+    },
   },
-  "background": {
-    "mode": "gradient",
-    "gradient": {
-      "angle": 135,
-      "from": "#0f172a",
-      "to": "#312e81"
-    }
+  background: {
+    mode: 'gradient',
+    gradient: {
+      angle: 135,
+      from: '#0f172a',
+      to: '#312e81',
+    },
   },
-  "shape": {
-    "enabled": true,
-    "type": "rounded",
-    "padding": 32,
-    "shadow": "medium",
-    "fill": "color",
-    "token": "card"
-  }
+  shape: {
+    enabled: true,
+    type: 'rounded',
+    padding: 32,
+    shadow: 'medium',
+    fill: 'color',
+    token: 'card',
+  },
 }
 ```
 
